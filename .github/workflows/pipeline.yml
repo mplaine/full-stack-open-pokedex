@@ -15,15 +15,17 @@ jobs:
           node-version: '20'
       - name: Install dependencies
         run: npm install
-      - name: Check style
+      - name: Check code style
         run: npm run eslint
       - name: Create a production build
         run: npm run build
       - name: Run frontend tests
         run: npm run test
-      - name: e2e tests
+      - name: Run e2e tests
         uses: cypress-io/github-action@v5
         with:
           command: npm run test:e2e
           start: npm run start-prod
           wait-on: http://localhost:5000
+      - name: Trigger Render deployment
+        run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
