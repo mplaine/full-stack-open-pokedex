@@ -7,7 +7,7 @@ describe('Pokedex', function () {
 
   it('Navigation works', function () {
     cy.visit('http://localhost:5000')
-    cy.contains('ivysaur-does-not-exist').click()
+    cy.contains('ivysaur').click()
 
     cy.get('.pokemon-ability-name').should('contain', 'chlorophyll').and('have.css', 'text-transform', 'capitalize')
   })
