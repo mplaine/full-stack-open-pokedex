@@ -54,11 +54,11 @@ footer {
 
 .list-item-name {
   position: absolute;
-  color: #000;
+  color: #00ff00;
   bottom: 0;
   width: 100%;
   text-align: center;
-  text-transform: capitalize;
+  text-transform: lowercase;
   background-color: #eee;
 }
 
