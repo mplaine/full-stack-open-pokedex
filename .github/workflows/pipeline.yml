@@ -50,6 +50,14 @@ jobs:
       - name: Trigger Render deployment
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ', '), '#skip') }}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
+      - name: Notify on failure
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ failure() }}
+        with:
+          text: Build failed
+          description: commit ${{ github.head_commit.url }} by ${{ github.actor }} broke the build :(
+          severity: error
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
@@ -63,3 +71,11 @@ jobs:
           DEFAULT_BUMP: patch
           WITH_V: false
           DRY_RUN: false
+      - name: Notify on success
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ success() }}
+        with:
+          text: A new version of Pokedex deployed
+          description: to https://pokedex-r2q9.onrender.com by ${{ github.actor }}
+          severity: info
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
