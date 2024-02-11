@@ -9,22 +9,22 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  a_test_job:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Commits
-        env:
-          COMMITS: ${{ toJson(github.event.commits) }}
-        run: echo "$COMMITS"
-      - name: Commit messages
-        env:
-          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-        run: echo "$COMMIT_MESSAGES"
+  # a_test_job:
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: GitHub context
+  #       env:
+  #         GITHUB_CONTEXT: ${{ toJson(github) }}
+  #       run: echo "$GITHUB_CONTEXT"
+  #     - name: Commits
+  #       env:
+  #         COMMITS: ${{ toJson(github.event.commits) }}
+  #       run: echo "$COMMITS"
+  #     - name: Commit messages
+  #       env:
+  #         COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+  #       run: echo "$COMMIT_MESSAGES"
   simple_deployment_pipeline:
     runs-on: ubuntu-20.04
     steps:
@@ -76,6 +76,6 @@ jobs:
         if: ${{ success() }}
         with:
           text: A new version of Pokedex deployed
-          description: to https://pokedex-r2q9.onrender.com by ${{ github.event.head_commit.author.username }}
+          description: to https://pokedex-r2q9.onrender.com by ${{ github.actor }}
           severity: info
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}

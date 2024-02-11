@@ -112,7 +112,7 @@ describe('<PokemonPage />', () => {
       )
     })
 
-    expect(screen.getByText('Previous')).toHaveAttribute('href', '/pokemon/ditto-break-the-test')
+    expect(screen.getByText('Previous')).toHaveAttribute('href', '/pokemon/ditto')
     expect(screen.getByText('Next')).toHaveAttribute('href', '/pokemon/vaporeon')
   })
 
