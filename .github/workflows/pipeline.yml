@@ -55,7 +55,7 @@ jobs:
         if: ${{ failure() }}
         with:
           text: Build failed
-          description: commit ${{ github.context.payload.head_commit.url }} by ${{ github.context.payload.head_commit.pusher.name }} broke the build :(
+          details: commit ${{ github.context.payload.head_commit.url }} by ${{ github.context.payload.head_commit.pusher.name }} broke the build :(
           severity: error
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   tag_release:
